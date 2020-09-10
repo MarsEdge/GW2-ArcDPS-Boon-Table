@@ -15,7 +15,6 @@ Right-click for options menu
     use disabled color for on not-hover
     show in/out of combat
     add profession column
-    add optional profession colors
     add scholar uptime
     add seaweed salad uptime
     make columns same order as dps.report
@@ -33,7 +32,8 @@ Right-click for options menu
     guardian signet share
 
 ## Changelog
-
+    September 09 2020
+        Added profession colors and updated image
     July 20 2019
         Add dynamic version string
         Make boon generation not cap at 100% for duration stacking boons
