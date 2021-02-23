@@ -1,4 +1,6 @@
-# [Click Here to Download](/../../releases)
+# Knox is now maintaining this. [Click here for their newer version](https://github.com/knoxfighter/GW2-ArcDPS-Boon-Table/)
+
+[Click Here to Download my old version](/../../releases)
 
 # ArcDPS Boon Table
 
