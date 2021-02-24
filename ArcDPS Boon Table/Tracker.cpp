@@ -21,6 +21,7 @@ void Tracker::addPlayer(ag* src, ag* dst)
 	uintptr_t new_id = src->id;
 	std::string new_character_name = std::string(src->name);
 	std::string new_account_name = std::string(dst->name);
+	uint32_t new_prof = dst->prof;
 	uint8_t new_subgroup = dst->team;
 
 	if (new_character_name.length() < 2) return;
@@ -33,12 +34,13 @@ void Tracker::addPlayer(ag* src, ag* dst)
 		current_player->is_relevant = true;
 		current_player->id = new_id;
 		current_player->name = new_character_name;
+		current_player->prof = new_prof;
 		current_player->subgroup = new_subgroup;
 	}
 	else
 	{
 		std::unique_lock<std::mutex> lock(players_mtx);
-		players.push_back(Player(new_id, new_character_name, new_account_name, new_subgroup));
+		players.push_back(Player(new_id, new_character_name, new_account_name, new_subgroup, new_prof));
 		lock.unlock();
 	}
 	bakeCombatData();

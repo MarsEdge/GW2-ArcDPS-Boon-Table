@@ -31,6 +31,8 @@ public:
 	AppChart();
 	~AppChart();
 
+	ImColor ProfessionColor(uint32_t prof);
+
 	void Draw(const char* title, bool* p_open, Tracker* tracker, ImGuiWindowFlags flags);
 
 	void drawRtClickMenu(Tracker* tracker);

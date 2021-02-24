@@ -13,7 +13,7 @@ bool Player::operator==(std::string other_name)
 		|| account_name == other_name;
 }
 
-Player::Player(uintptr_t new_id, std::string new_name, std::string new_account_name, uint8_t new_subgroup)
+Player::Player(uintptr_t new_id, std::string new_name, std::string new_account_name, uint8_t new_subgroup, uint32_t new_prof)
 {
 	id = new_id;
 	name = new_name;
@@ -21,6 +21,7 @@ Player::Player(uintptr_t new_id, std::string new_name, std::string new_account_n
 	enter_combat_time = getCurrentTime();
 	in_combat = false;
 	subgroup = new_subgroup;
+	prof = new_prof;
 	is_relevant = true;
 }
 

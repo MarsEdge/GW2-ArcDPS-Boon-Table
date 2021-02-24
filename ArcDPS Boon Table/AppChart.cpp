@@ -16,6 +16,43 @@ AppChart::~AppChart()
 {
 }
 
+ImColor AppChart::ProfessionColor(uint32_t prof) {
+	switch (prof) {
+	case 0:
+		return ImColor(0.34f, 0.3f, 0.36f, 0.49f);
+		break;
+	case 1:
+		return ImColor(0.04f, 0.87f, 1.0f, 0.43f);
+		break;
+	case 2:
+		return ImColor(1.0f, 0.83f, 0.24f, 0.43f);
+		break;
+	case 3:
+		return ImColor(0.89f, 0.45f, 0.16f, 0.43f);
+		break;
+	case 4:
+		return ImColor(0.53f, 0.87f, 0.04f, 0.43f);
+		break;
+	case 5:
+		return ImColor(0.89f, 0.37f, 0.45f, 0.45f);
+		break;
+	case 6:
+		return ImColor(0.97f, 0.22f, 0.22f, 0.43f);
+		break;
+	case 7:
+		return ImColor(0.8f, 0.23f, 0.82f, 0.43f);
+		break;
+	case 8:
+		return ImColor(0.02f, 0.89f, 0.49f, 0.43f);
+		break;
+	case 9:
+		return ImColor(0.63f, 0.16f, 0.16f, 0.45f);
+		break;
+	}
+
+	return ImColor(1, 1, 1);
+}
+
 void AppChart::Draw(const char* title, bool* p_open = nullptr, Tracker* tracker = nullptr,ImGuiWindowFlags flags = 0)
 {
 	ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiSetCond_FirstUseEver);
@@ -78,7 +115,8 @@ void AppChart::Draw(const char* title, bool* p_open = nullptr, Tracker* tracker 
 		for (auto current_player = tracker->players.begin(); current_player != tracker->players.end(); ++current_player)
 		{
 			if (!current_player->is_relevant) continue;
-			highlightedText(current_player->id, current_player->name.c_str());
+			highlightedText(current_player->id, "%s", current_player->name.c_str());
+
 			ImGui::SameLine(tracker->max_character_name_size + ImGui::GetStyle().ItemSpacing.x);
 			current_column++;
 
@@ -249,6 +287,10 @@ void AppChart::drawRtClickMenu(Tracker* tracker)
 
 void AppChart::buffProgressBar(BoonDef* current_buff, float current_boon_uptime, Player* current_player, uintptr_t current_id, float width)
 {
+	ImColor color = NULL;
+	if(current_player) 
+		color = ProfessionColor(current_player->prof);
+
 	if (last_active_player == current_id || last_active_column == current_column)
 	{
 		ImGui::PushStyleColor(ImGuiCol_Text, active_bar_color);
@@ -265,23 +307,23 @@ void AppChart::buffProgressBar(BoonDef* current_buff, float current_boon_uptime,
 		{
 			sprintf(label, "%.1f", current_boon_uptime);
 			current_boon_uptime /= 25;
-			ImGui::ProgressBar(current_boon_uptime, ImVec2(width, ImGui::GetFontSize()), label);
+			ImGui::ProgressBar(current_boon_uptime, ImVec2(width, ImGui::GetFontSize()), label, color);
 		}
 		else
 		{
 			sprintf(label, "%.0f%%", 100*(double)current_boon_uptime);
-			ImGui::ProgressBar(current_boon_uptime, ImVec2(width, ImGui::GetFontSize()), label);
+			ImGui::ProgressBar(current_boon_uptime, ImVec2(width, ImGui::GetFontSize()), label, color);
 		}
 	}
 	else
 	{
 		if (current_buff->stacking_type == StackingType_intensity)
 		{//don't show the % for intensity stacking buffs
-			ImGui::Text("%.1f", current_boon_uptime);
+			ImGui::TextColored(color, "%.1f", current_boon_uptime);
 		}
 		else
 		{
-			ImGui::Text("%.0f%%", 100*(double)current_boon_uptime);
+			ImGui::TextColored(color, "%.0f%%", 100*(double)current_boon_uptime);
 		}
 	}
 

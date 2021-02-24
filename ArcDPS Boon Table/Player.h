@@ -15,6 +15,7 @@ public:
 	uintptr_t id = 0;
 	std::string name = "";
 	std::string account_name = "";
+	uint32_t prof = NULL;
 	std::map<uint32_t, Boon> boons_uptime;
 	std::map<uint32_t, Boon> boons_uptime_initial;
 	std::map<uint32_t, Boon> boons_generation;
@@ -28,7 +29,7 @@ public:
 	bool operator==(uintptr_t other_id);
 	bool operator==(std::string other_name);
 
-	Player(uintptr_t new_id, std::string new_name, std::string new_account_name, uint8_t new_subgroup);
+	Player(uintptr_t new_id, std::string new_name, std::string new_account_name, uint8_t new_subgroup, uint32_t new_prof);
 	~Player();
 
 	void applyBoon(cbtevent* ev);
